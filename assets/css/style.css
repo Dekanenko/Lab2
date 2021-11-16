@@ -1,0 +1,21 @@
+body{
+    background-color: black;
+}
+
+p{
+    color: white;
+}
+
+.header{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn{
+    width: 100px;
+    height: 30px;
+    border-radius: 20px;
+    border-width: 0px;
+}
