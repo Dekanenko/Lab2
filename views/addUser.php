@@ -6,6 +6,7 @@
                 content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <link rel="stylesheet" href="assets/css/style.css">
         <style>
             body{
                 padding-top: 3rem;
@@ -36,7 +37,7 @@
                 </div>
                 <div class="row">
                     <div class="field">
-                        <label>Password: <input type="password" name="password"><br></label>
+                        <label>Password: <input type="password" minlength="6" name="password"><br></label>
                     </div>
                 </div>                
                 <div class="row">
@@ -52,19 +53,14 @@
                 </div>
                 <div class="row">
                     <div class="field">
-                        <label>Comment<textarea name="text_area" cols="30" rows="10"></textarea><br></label>
-                    </div>
-                </div> 
-                <div class="row">
-                    <div class="field">
                         <label>
-                            <input class="with-gap" type="radio" name="access" value="admin"/>
+                            <input class="with-gap" type="radio" name="role" value="admin"/>
                             <span>Admin</span>
                         </label>
                     </div>
                     <div class="field">
                         <label>
-                            <input class="with-gap"  type="radio" name="access" value="user"/>
+                            <input class="with-gap"  type="radio" name="role" value="user"/>
                             <span>User</span>
                         </label>
                     </div>

@@ -10,14 +10,24 @@ class Index {
         $result = $conn->query($sql);
         if ($result->num_rows>0) {
             while($row = $result->fetch_assoc()){
-                if($row['password']==$password){
-                    $_SESSION["auth"] = true;
-                    echo $_SESSION["auth"];
+                if(password_verify($password, $row['password'])){
+                    $id = $row['id_role'];  
+                    $sql = "SELECT * FROM roles WHERE id = '$id'";
+                    $res = $conn->query($sql);
+                    if($res->num_rows > 0){
+                        $_SESSION["access"] = $res->fetch_assoc()['title'];
+                        $_SESSION["fname"] = $row['first_name'];
+                        $_SESSION["id"] = $row['id'];
+                    }      
                 }
             }
-            
         }
-        header('Location:?controller=users&action=addForm');
+    }
+
+    public static function logout(){
+        session_start();
+        session_unset();
+        session_destroy();
     }
 
  
