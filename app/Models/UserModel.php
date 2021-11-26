@@ -33,8 +33,12 @@ class User {
         }
     }
 
-    public static function all($conn) {
-        $sql = "SELECT users.id, users.first_name, users.second_name, users.email, users.path_to_img, roles.title FROM users LEFT JOIN roles ON users.id_role=roles.id";
+    public static function all($conn, $str) {
+        if($str!=''){
+            $sql = "SELECT users.id, users.first_name, users.second_name, users.email, users.path_to_img, roles.title FROM users LEFT JOIN roles ON users.id_role=roles.id WHERE first_name LIKE '%$str%' OR second_name LIKE '%$str%'";
+        }else{
+            $sql = "SELECT users.id, users.first_name, users.second_name, users.email, users.path_to_img, roles.title FROM users LEFT JOIN roles ON users.id_role=roles.id";
+        }
         $result = $conn->query($sql);
         if ($result->num_rows > 0) {
             $arr = [];
@@ -87,20 +91,6 @@ class User {
                     return true;
                 }
             }
-        }
-    }
-
-    public static function search($conn, $fname, $sname){
-        $sql = "SELECT users.id, users.first_name, users.second_name, users.email, users.path_to_img, roles.title FROM users LEFT JOIN roles ON users.id_role=roles.id WHERE first_name = '$fname' AND second_name = '$sname'";
-        $result = mysqli_query($conn, $sql);
-        if ($result->num_rows > 0) {
-            $arr = [];
-            while ( $db_field = $result->fetch_assoc() ) {
-                $arr[] = $db_field;
-            }
-            return $arr;
-        }else{
-            return [];
         }
     }
 

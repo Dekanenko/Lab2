@@ -7,7 +7,12 @@ class UsersController{
 
     public function index(){
         include_once 'app/Models/UserModel.php';
-        $users = (new User())::all($this->conn);
+        $str = filter_input(INPUT_POST, 'str', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if(isset($str)){
+            $users = (new User())::all($this->conn, $str);
+        }else{
+            $users = (new User())::all($this->conn, '');
+        }
         include_once 'views/users.php';
     }
 
@@ -90,25 +95,13 @@ class UsersController{
         }
         header('Location: ?controller=users');
     }
-
-    public function search(){
-        include_once 'app/Models/UserModel.php';
-        $str = filter_input(INPUT_POST, 'str', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $str = explode(' ', $str);
-        if(isset($str[1])){
-            $users = (new User())::search($this->conn, $str[0], $str[1]);
-            include_once 'views/users.php';
-        }else{
-            header('Location: ?controller=users');
-        }
-    }
-
+    
     public function leaveCom(){
         include_once 'app/Models/UserModel.php';
         $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $user_id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $author_id = $_SESSION['id'];
-        $com_date = date('l jS \of F Y h:i:s A');
+        $com_date = date("Y-m-d H:i:s");
         (new User())::leaveCom($this->conn, $user_id, $comment, $author_id, $com_date);
 
         $_SESSION['reload'] = true;
@@ -119,7 +112,7 @@ class UsersController{
         include_once 'app/Models/UserModel.php';
         $comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        $com_date = date('l jS \of F Y h:i:s A');
+        $com_date = date("Y-m-d H:i:s");
         (new User())::change_comments($this->conn, $id, $comment, $com_date);
 
         $_SESSION['reload'] = true;

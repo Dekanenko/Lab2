@@ -76,7 +76,7 @@
                 <?php endif ?>
                 </div>
             <div class="search_container">
-                <form action="?controller=users&action=search" method="post">
+                <form action="?controller=users&action=index" method="post">
                     <input id="str" type="text" name="str" value="">
                     <input type="submit" class="btn" value="Search">
                     <input id="clear" type="button" value="Clear" class="btn">
